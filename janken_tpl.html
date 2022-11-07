@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/sample.css">
+<title>じゃんけんゲーム</title>
+</head>
+<body>
+<header><!-- ヘッダー -->
+  <h1>じゃんけんゲーム</h1>
+</header>
+<picture><!-- 両方の手の表示 -->
+  <div id="myPanel">
+    <p>あなたの手</p>
+    <div id="my"><img src="./img/janken0.png"/></div>
+  </div>
+  <div id="enemyPanel">
+    <p>相手の手</p>
+    <div id="enemy"><img src="./img/janken0.png"/></div>
+  </div>
+</picture>
+<main><!-- 自分の手の選択 -->
+  <p>あなたの手を選んでください。</p>
+  <div id="playerpanel">
+    <ul>
+      <li><img class="btn" src="./img/janken0.png" onClick="(this)"/></li>
+      <li><img class="btn" src="./img/janken1.png" onClick="(this)"/></li>
+      <li><img class="btn" src="./img/janken2.png" onClick="(this)"/></li>
+    </ul>
+  </div>
+  <!-- 勝敗の表示 -->
+  <div id="resultPanel">
+    <p>勝敗</p>
+    <p id="result">[！勝負！]</p>
+    <p id="history">勝ち: 0 負け: 0 引き分け: 0</p>
+    <div id=clear_panel>
+      <button id="clear">Reset</button>
+    </div>
+  </div>
+</main>
+<footer></footer>
+<script>
+//ローカルストレージ取得コード
+let win = localStorage.getItem('win');
+if (win == null) {
+        win = 0;
+    }
+let lose = localStorage.getItem('lose');
+if (lose == null) {
+        lose = 0;
+    }
+let draw = localStorage.getItem('draw');
+if (draw == null) {
+        draw = 0;
+    }
+$("#history").html("<p id='history'>勝ち: "+win+" 負け:"+lose+" 引き分け:"+draw+"</p>");
+
+//クリアコード
+$("#clear").on("click",function(){
+    localStorage.clear();
+    win = 0;
+    lose = 0;
+    draw = 0;
+    $("#history").html("<p id='history'>勝ち: "+win+" 負け:"+lose+" 引き分け:"+draw+"</p>");
+    $("#result").text("【！勝負！】");
+});
+
+//じゃんけん用のSCRIPTを書いてください
+$(".btn").on("click",function(){
+  //相手の手の関係
+  let evalue = Math.floor(Math.random()*3);//0~2でランダム
+  //相手の手を表示する。
+  $("#enemy").html("<img id='enemy' src='./img/janken"+evalue+".png'/>");
+  
+  //自分の手の関係
+  //自分の手として選択されている画像のファイル名を取得する。
+  let pfilename = $(this).attr("src");
+  //数字のファイル名から正規表現を用いて、数字の部分だけを抽出する。
+  let pvalue = pfilename.match(/\d/)[0];
+  //自分の手を表示する。
+  $("#my").html("<img id='my' src='./img/janken"+pvalue+".png'/>");
+
+  //数字の引き算によって勝敗を判別する。
+  let result = (pvalue-evalue+3)%3;
+  //HTMLのresultという名前のIDをもつHTMLエレメントに文字を表示する。
+  $("#result").text(["【あいこ】","【負け】","【勝ち】"][result]);
+
+  //勝敗のカウント
+  if(result == 0){
+    draw = parseInt(draw) + 1;
+    // console.log(draw);
+  }else if(result == 1){
+    lose = parseInt(lose) + 1;
+    // console.log(lose);
+  }else{
+    win = parseInt(win) + 1;
+    // console.log(win);
+  }
+  $("#history").html("<p id='history'>勝ち: "+win+" 負け:"+lose+" 引き分け:"+draw+"</p>");
+
+  //ローカルストレージへ保存
+  localStorage.setItem('win',win);
+  localStorage.setItem('lose',lose);
+  localStorage.setItem('draw',draw);
+});
+</script>
+</body>
+</html>

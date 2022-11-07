@@ -1,0 +1,81 @@
+body{
+    margin:0;
+    padding:0;
+    font-size: 32px;
+}
+header{
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    font-size: 75px;
+}
+header h1{
+    margin: 10px;
+}
+picture{
+    display: flex;
+    justify-content: center;
+}
+#myPanel p{
+    padding-left: 120px;
+    margin: 10px auto;
+}
+#my img{
+    padding-right: 90px;
+    width: 400px;
+    height: 400px;
+}
+#enemyPanel P{
+    padding-left: 225px;
+    margin: 10px auto;
+}
+#enemy img{
+    padding-left: 90px;
+    width: 400px;
+    height: 400px;
+}
+#playerpanel{
+    display: flex;
+    justify-content: center;
+}
+#playerpanel img{
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+}
+#jankenControl{
+    text-align: center;
+    margin: 10px auto;
+}
+main p{
+    text-align: center;
+}
+ul{
+    padding: 0;
+    border-top: 1px solid #000000;
+    display:table;  /* 定義 */
+    table-layout: fixed;
+    width:100%;
+}
+li{
+    text-align: center;
+    list-style-type:none;
+    border: 1px solid #666;
+    background-color: #FFF;
+    display:table-cell;  /* 定義 */
+    cursor: pointer;
+    padding-top: 5px;
+    box-sizing: border-box;
+}
+li:hover{
+    background: #00cc1b;
+    color:#fff;
+}
+#clear_panel{
+    text-align: center;
+}
+footer{
+    background-color: #fff;
+    border-bottom:1px solid #ccc;
+    text-align: center;
+}
